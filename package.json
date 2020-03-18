@@ -10,6 +10,7 @@
     "make": "ts-node build.ts",
     "build-app": "npm run make",
     "makeIcon": "bash makeIcon.sh",
+    "postmakeIcon": "png-to-ico build/icon.png > build/icon.ico",
     "assets": "cp assets/* app && cp package.json app",
     "dmg": "electron-installer-dmg ./Sarigama-darwin-x64/Sarigama.app Sarigama",
     "prebuild-app": "npm run clean && npm run build && npm run makeIcon"
@@ -21,6 +22,7 @@
     "electron": "^8.1.1",
     "electron-builder": "22.4.1",
     "electron-notarize": "^0.2.1",
+    "png-to-ico": "^2.1.0",
     "rimraf": "^3.0.2",
     "ts-node": "7.0.1",
     "typescript": "^3.8.3"
