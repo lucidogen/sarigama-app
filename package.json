@@ -1,12 +1,14 @@
 {
   "name": "sarigama-app",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Sarigama electron app",
   "private": true,
   "main": "app/index.js",
   "scripts": {
     "clean": "rimraf dist build app",
     "build": "tsc",
+    "start": "electron app",
+    "prestart": "npm run build",
     "make": "ts-node build.ts",
     "build-app": "npm run make",
     "makeIcon": "bash makeIcon.sh",
@@ -19,6 +21,7 @@
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
+    "@types/electron": "^1.6.10",
     "electron": "^8.1.1",
     "electron-builder": "22.4.1",
     "electron-notarize": "^0.2.1",
