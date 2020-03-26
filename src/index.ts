@@ -1,8 +1,7 @@
 import { app, BrowserWindow } from 'electron'
 import { quit } from './helpers'
 import { options } from './options'
-
-const APP_URL = 'https://app.sarigama.io'
+import { settings } from './settings'
 /*
 // Auto updates will come later. We use the web app service worker for this ATM.
 const { autoUpdater } = require('electron-updater')
@@ -12,9 +11,13 @@ autoUpdater.logger.transports.file.level = 'info'
 autoUpdater.checkForUpdatesAndNotify()
 */
 
-function createWindow() {
+async function createWindow() {
   const win = new BrowserWindow(options)
-  win.loadURL(APP_URL)
+  await win.loadURL(settings.url)
+  win.webContents.executeJavaScript(
+    `window.SARIGAMA_APP = ${JSON.stringify(app.getVersion())}`
+  )
+
   win.on('close', e => {
     quit(win)
   })
