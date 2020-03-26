@@ -2,8 +2,7 @@ import { app, BrowserWindow } from 'electron'
 import { quit } from './helpers'
 import { options } from './options'
 
-// const APP_URL = 'https://app.sarigama.io'
-const APP_URL = 'http://localhost:1233'
+const APP_URL = 'https://app.sarigama.io'
 /*
 // Auto updates will come later. We use the web app service worker for this ATM.
 const { autoUpdater } = require('electron-updater')

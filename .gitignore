@@ -1,7 +1,5 @@
-**/node_modules
-**/app
-**/dist
-**/.env*
-**/*.log
-**/.vscode
+node_modules
+app
+dist
+.vscode
 **/.DS_Store
