@@ -15,10 +15,6 @@ async function createWindow() {
   const win = new BrowserWindow(options)
   await win.loadURL(settings.url)
   console.log('Starting Sarigama app', app.getVersion())
-  win.webContents.executeJavaScript(
-    `window.SARIGAMA_APP = ${JSON.stringify(app.getVersion())}`
-  )
-
   win.on('close', e => {
     quit(win)
   })

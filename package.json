@@ -17,7 +17,10 @@
   },
   "author": "Gaspard Bucher <gaspard@lucidogen.io> (http://lucidogen.io)",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "platform-folders": "^0.5.2",
+    "sanitize-filename-ts": "^1.0.2"
+  },
   "devDependencies": {
     "@types/electron": "^1.6.10",
     "electron": "^8.1.1",

@@ -1,4 +1,5 @@
-import { BrowserWindowConstructorOptions } from 'electron'
+import { app, BrowserWindowConstructorOptions } from 'electron'
+import path from 'path'
 import { isLinux } from './helpers'
 
 export const options: BrowserWindowConstructorOptions = {
@@ -6,6 +7,8 @@ export const options: BrowserWindowConstructorOptions = {
   height: 800,
   icon: isLinux ? './icon.png' : undefined,
   webPreferences: {
+    preload: path.join(app.getAppPath(), 'preload.js'),
     nodeIntegration: false,
+    nodeIntegrationInWorker: false,
   },
 }
