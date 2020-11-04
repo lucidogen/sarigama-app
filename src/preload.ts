@@ -1,5 +1,5 @@
-import { app } from 'electron'
-import { setupFileCache } from './fileCache'
-window.SARIGAMA_APP = app.getVersion()
+import { fileCacheAPI } from './fileCache'
 
-setupFileCache(window)
+const { contextBridge } = require('electron')
+
+contextBridge.exposeInMainWorld('fileCache', fileCacheAPI())

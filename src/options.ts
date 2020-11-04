@@ -10,5 +10,6 @@ export const options: BrowserWindowConstructorOptions = {
     preload: path.join(app.getAppPath(), 'preload.js'),
     nodeIntegration: false,
     nodeIntegrationInWorker: false,
+    contextIsolation: true,
   },
 }

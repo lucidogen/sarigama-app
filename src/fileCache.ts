@@ -1,68 +1,56 @@
-import { FileCacheArg } from './fileCache.types'
-import { sanitize } from 'sanitize-filename-ts'
-import { getCacheFolder } from 'platform-folders'
-import { readFile, unlink, writeFile, rmdir } from 'fs'
+import { existsSync, mkdirSync, readFile, rmdir, unlink, writeFile } from 'fs'
 import { join } from 'path'
+import { getCacheFolder } from 'platform-folders'
+import { sanitize } from 'sanitize-filename-ts'
+import { FileCacheAPI } from './fileCache.types'
 
 const cacheRoot = join(getCacheFolder(), 'Sarigama')
+console.log('CacheRoot', cacheRoot)
 
-function sanePath(dbname: string, id: string): string {
+function sanePath(dbname: string, id?: string): string {
   // Make sure sanitize never evaluates to empty string ''
-  return join(
-    cacheRoot,
-    sanitize(dbname) || 'notEmpty',
-    sanitize(id) || 'notEmpty'
-  )
+  const folder = join(cacheRoot, sanitize(dbname) || 'notEmpty')
+  if (!existsSync(folder)) {
+    mkdirSync(folder, { recursive: true })
+  }
+  return id ? join(folder, sanitize(id) || 'notEmpty') : folder
 }
 
-export function setupFileCache(window: Window) {
-  window.fileCache = arg => {
-    return new Promise((resolve, reject) => {
-      if (arg.method === 'clear') {
-        const allPath = join(cacheRoot, sanitize(arg.dbname) || 'notEmpty')
-        rmdir(allPath, { recursive: true }, err => {
-          if (err && err.code !== 'ENOENT') {
-            // we ignore files that are already missing
-            reject({ status: 'error', message: err.message })
-          } else {
-            resolve({ status: 'cleared' })
-          }
-        })
-        return
-      }
-
-      const path = sanePath(arg.dbname, arg.id)
-      if (arg.method === 'get') {
-        readFile(path, (err, buffer) => {
-          if (err) {
-            reject({ status: 'error', message: err.message })
-          } else {
-            resolve({ status: 'found', buffer })
-          }
-        })
-      } else if (arg.method === 'put') {
-        writeFile(path, arg.file, err => {
-          if (err) {
-            reject({ status: 'error', message: err.message })
-          } else {
-            resolve({ status: 'updated' })
-          }
-        })
-      } else if (arg.method === 'delete') {
-        unlink(path, err => {
-          if (err && err.code !== 'ENOENT') {
-            // we ignore files that are already missing
-            reject({ status: 'error', message: err.message })
-          } else {
-            resolve({ status: 'deleted' })
-          }
-        })
-      }
-
-      reject({
-        status: 'error',
-        message: `invalid method '${(arg as FileCacheArg).method}'`,
-      })
-    })
+export function fileCacheAPI(): FileCacheAPI {
+  return {
+    put(dbname, id, file) {
+      const path = sanePath(dbname, id)
+      console.log('put', path)
+      return new Promise(resolve =>
+        writeFile(path, file, err => resolve(err ? { error: err.message } : {}))
+      )
+    },
+    get(dbname, id) {
+      const path = sanePath(dbname, id)
+      console.log('get', path)
+      return new Promise(resolve =>
+        readFile(path, (err, buffer) =>
+          resolve(err ? { error: err.message } : { buffer })
+        )
+      )
+    },
+    remove(dbname, id) {
+      const path = sanePath(dbname, id)
+      console.log('remove', path)
+      return new Promise(resolve =>
+        unlink(path, err =>
+          resolve(err && err.code !== 'ENOENT' ? { error: err.message } : {})
+        )
+      )
+    },
+    clear(dbname) {
+      const allPath = sanePath(dbname)
+      console.log('clear', allPath)
+      return new Promise(resolve =>
+        rmdir(allPath, { recursive: true }, err =>
+          resolve(err && err.code !== 'ENOENT' ? { error: err.message } : {})
+        )
+      )
+    },
   }
 }
