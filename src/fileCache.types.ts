@@ -4,11 +4,12 @@
 
 export interface FileCacheResult {
   error?: string
-  buffer?: Buffer
+  url?: string
 }
 
 export interface FileCacheAPI {
-  put(dbname: string, id: string, file: File): Promise<FileCacheResult>
+  put(dbname: string, id: string, url: string): Promise<FileCacheResult>
+  // url HAS TO BE REVOKED ON RECEIVE
   get(dbname: string, id: string): Promise<FileCacheResult>
   remove(dbname: string, id: string): Promise<FileCacheResult>
   clear(dbname: string): Promise<FileCacheResult>

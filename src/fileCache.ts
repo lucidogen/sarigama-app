@@ -5,7 +5,6 @@ import { sanitize } from 'sanitize-filename-ts'
 import { FileCacheAPI } from './fileCache.types'
 
 const cacheRoot = join(getCacheFolder(), 'Sarigama')
-console.log('CacheRoot', cacheRoot)
 
 function sanePath(dbname: string, id?: string): string {
   // Make sure sanitize never evaluates to empty string ''
@@ -18,25 +17,41 @@ function sanePath(dbname: string, id?: string): string {
 
 export function fileCacheAPI(): FileCacheAPI {
   return {
-    put(dbname, id, file) {
+    put(dbname, id, url) {
       const path = sanePath(dbname, id)
-      console.log('put', path)
       return new Promise(resolve =>
-        writeFile(path, file, err => resolve(err ? { error: err.message } : {}))
+        fetch(url)
+          .then(response => {
+            response.arrayBuffer().then(buffer => {
+              writeFile(
+                path,
+                Buffer.from(buffer),
+                { encoding: 'binary' },
+                err => {
+                  resolve(err ? { error: err.message } : {})
+                }
+              )
+            })
+          })
+          .catch(err => resolve({ error: err.message }))
       )
     },
     get(dbname, id) {
       const path = sanePath(dbname, id)
-      console.log('get', path)
       return new Promise(resolve =>
-        readFile(path, (err, buffer) =>
-          resolve(err ? { error: err.message } : { buffer })
-        )
+        readFile(path, async (err, buffer) => {
+          if (err) {
+            resolve({ error: err.message })
+          } else {
+            // FIXME: BAD DESIGN: createObjectURL not with revokeObjectURL
+            // revoke has to be called on recipient !!
+            resolve({ url: URL.createObjectURL(new Blob([buffer])) })
+          }
+        })
       )
     },
     remove(dbname, id) {
       const path = sanePath(dbname, id)
-      console.log('remove', path)
       return new Promise(resolve =>
         unlink(path, err =>
           resolve(err && err.code !== 'ENOENT' ? { error: err.message } : {})
