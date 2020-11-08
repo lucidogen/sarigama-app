@@ -6,7 +6,9 @@ import logger from 'electron-log'
 import { autoUpdater } from 'electron-updater'
 logger.transports.file.level = 'debug'
 autoUpdater.logger = logger
-autoUpdater.checkForUpdatesAndNotify()
+setInterval(() => {
+  autoUpdater.checkForUpdatesAndNotify()
+}, 1000 * 60 * 15) // 15 minutes
 
 // FIXME BEFORE INITIAL PUBLIC RELEASE !!!
 // TODO: Update links in documentation / install instructions !!
