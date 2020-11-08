@@ -17,7 +17,9 @@ export interface FileCacheAPI {
 
 declare global {
   interface Window {
-    SARIGAMA_APP: string
+    electron?: {
+      appVersion: () => string
+    }
     // Removed as soon as setup is run. Not present when running from
     // normal browser.
     fileCache?: FileCacheAPI

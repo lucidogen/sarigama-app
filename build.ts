@@ -16,6 +16,7 @@ async function buildApp() {
       targets: isMac
         ? Platform.MAC.createTarget()
         : Platform.WINDOWS.createTarget(),
+      publish: 'always',
       config: {
         productName,
         appId,
@@ -24,7 +25,6 @@ async function buildApp() {
           hardenedRuntime: true,
           entitlements: './misc/entitlements.mac.inherit.plist',
           category: 'public.app-category.education',
-          target: ['dmg'],
         },
         win: {
           target: 'nsis',
@@ -33,6 +33,9 @@ async function buildApp() {
             'D:\\Dropbox\\_LUCIDOGEN\\SARIGAMA-SECURITY\\sectigo_certificate.pfx',
         },
         afterSign: afterSign({ appId }),
+        publish: {
+          provider: 'github',
+        },
       },
     })
     .then(r => {
