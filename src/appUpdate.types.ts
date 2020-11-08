@@ -2,19 +2,24 @@
 // UNTIL WE PUBLISH '@lucidogen/useragent' AND CAN IMPORT
 // FROM THERE.
 
+export interface AppUpdateInfo {
+  status: 'available' | 'downloading' | 'ready'
+  needsRestart: boolean
+  releaseDate?: string
+  version?: string
+  progress?: number
+  total?: number
+  bytesPerSecond?: number
+}
+
 export interface AppUpdateAPI {
   version(): string
   onUpdate(
-    callback: (arg: { version: string; releaseDate: string }) => void
+    // callback on update changes
+    callback: (arg: AppUpdateInfo) => void,
+    // check interval in seconds (0 = never)
+    checkInterval: number
   ): void
-  onProgress(
-    callback: (arg: {
-      progress: number
-      total: number
-      bytesPerSecond: number
-    }) => void
-  ): void
-  onReady(callback: (arg: { version: string }) => void): void
   restart(): void
 }
 

@@ -6,6 +6,8 @@ import { FileCacheAPI } from './fileCache.types'
 
 const cacheRoot = join(getCacheFolder(), 'Sarigama')
 
+/// THIS RUNS IN THE RENDER PROCESS DURING PRELOAD, USING CONTEXT BRIDGE ////
+
 function sanePath(dbname: string, id?: string): string {
   // Make sure sanitize never evaluates to empty string ''
   const folder = join(cacheRoot, sanitize(dbname) || 'notEmpty')

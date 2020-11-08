@@ -1,21 +1,11 @@
 import { app, BrowserWindow } from 'electron'
+import { appUpdateSetupMain } from './appUpdate.main'
 import { quit } from './helpers'
 import { options } from './options'
 import { settings } from './settings'
-import logger from 'electron-log'
-import { autoUpdater } from 'electron-updater'
-logger.transports.file.level = 'debug'
-autoUpdater.logger = logger
-setInterval(() => {
-  autoUpdater.checkForUpdatesAndNotify()
-}, 1000 * 60 * 15) // 15 minutes
 
-// FIXME BEFORE INITIAL PUBLIC RELEASE !!!
-// TODO: Update links in documentation / install instructions !!
-// TODO: Should use 'latest' in link.
-// Name of download contains version !! BAD.
-// https://github.com/lucidogen/sarigama-app/releases/latest/download/Sarigama.dmg
-// https://www.electron.build/auto-update
+// FIXME BEFORE RELEASE
+// Update latest links in install instructions
 
 async function createWindow() {
   const win = new BrowserWindow(options)
@@ -23,6 +13,7 @@ async function createWindow() {
   win.on('close', e => {
     quit(win)
   })
+  appUpdateSetupMain(win)
 }
 
 // Make sure we quit app correctly (to avoid localStorage reset due to crash)
