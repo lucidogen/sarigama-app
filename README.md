@@ -21,6 +21,8 @@ npm run deploy
 
 Finish release on github website.
 
+Update links to latest binaries on website.
+
 ## Mac deploy setup information
 
 Create a signing request: [info](https://github.com/electron/electron-osx-sign/wiki/1.-Getting-Started#certificates)

@@ -11,6 +11,7 @@ autoUpdater.checkForUpdatesAndNotify()
 // FIXME BEFORE INITIAL PUBLIC RELEASE !!!
 // TODO: Update links in documentation / install instructions !!
 // TODO: Should use 'latest' in link.
+// Name of download contains version !! BAD.
 // https://github.com/lucidogen/sarigama-app/releases/latest/download/Sarigama.dmg
 // https://www.electron.build/auto-update
 

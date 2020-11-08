@@ -1,6 +1,6 @@
 {
   "name": "sarigama-app",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Sarigama electron app",
   "private": true,
   "main": "app/index.js",
@@ -10,12 +10,14 @@
   },
   "scripts": {
     "clean": "rimraf dist app",
-    "build": "tsc",
-    "prebuild": "npm run clean",
     "start": "electron app",
-    "prestart": "npm run build",
-    "deploy": "ts-node build.ts",
-    "predeploy": "npm run build",
+    "prestart": "npm run compile",
+    "compile": "tsc",
+    "precompile": "npm run clean",
+    "build": "ts-node build.ts",
+    "prebuild": "npm run compile",
+    "deploy": "ts-node build.ts deploy",
+    "predeploy": "npm run compile",
     "makeIcon": "bash makeIcon.sh",
     "postmakeIcon": "png-to-ico build/icon.png > build/icon.ico",
     "assets": "cp assets/* app && cp package.json app"
@@ -24,6 +26,7 @@
   "license": "MIT",
   "dependencies": {
     "electron-updater": "^4.3.5",
+    "electron-log": "^4.3.0",
     "platform-folders": "^0.5.2",
     "sanitize-filename-ts": "^1.0.2"
   },
@@ -31,7 +34,6 @@
     "@types/electron": "^1.6.10",
     "electron": "^10.1.5",
     "electron-builder": "^22.9.1",
-    "electron-log": "^4.3.0",
     "electron-notarize": "^1.0.0",
     "png-to-ico": "^2.1.1",
     "rimraf": "^3.0.2",

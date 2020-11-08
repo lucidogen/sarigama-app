@@ -1,22 +1,25 @@
 import * as builder from 'electron-builder'
 import { afterSign } from './afterSign'
-const Platform = builder.Platform
+// const Platform = builder.Platform
 const productName = 'Sarigama'
 const appId = 'io.sarigama.app'
 
 // to build on Windows
-// env CSC_KEY_PASSWORD=[PASSWORD HERE] npm run make
+// env CSC_KEY_PASSWORD=[PASSWORD HERE] npm run build
 
-const isMac = process.platform === 'darwin'
+// const isMac = process.platform === 'darwin'
+const publish = process.argv[2] === 'deploy' ? 'always' : 'never'
 
 // Promise is returned
 async function buildApp() {
   await builder
     .build({
+      /*
       targets: isMac
         ? Platform.MAC.createTarget()
         : Platform.WINDOWS.createTarget(),
-      publish: 'always',
+        */
+      publish,
       config: {
         productName,
         appId,
@@ -33,6 +36,7 @@ async function buildApp() {
             'D:\\Dropbox\\_LUCIDOGEN\\SARIGAMA-SECURITY\\sectigo_certificate.pfx',
         },
         afterSign: afterSign({ appId }),
+        forceCodeSigning: true,
         publish: {
           provider: 'github',
         },
