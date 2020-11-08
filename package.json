@@ -1,6 +1,6 @@
 {
   "name": "sarigama-app",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Sarigama electron app",
   "private": true,
   "main": "app/index.js",
@@ -26,7 +26,6 @@
   "license": "MIT",
   "dependencies": {
     "electron-updater": "^4.3.5",
-    "electron-log": "^4.3.0",
     "platform-folders": "^0.5.2",
     "sanitize-filename-ts": "^1.0.2"
   },
@@ -34,6 +33,7 @@
     "@types/electron": "^1.6.10",
     "electron": "^10.1.5",
     "electron-builder": "^22.9.1",
+    "electron-log": "^4.3.0",
     "electron-notarize": "^1.0.0",
     "png-to-ico": "^2.1.1",
     "rimraf": "^3.0.2",
