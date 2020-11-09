@@ -5,7 +5,7 @@ const productName = 'Sarigama'
 const appId = 'io.sarigama.app'
 
 // to build on Windows
-// env CSC_KEY_PASSWORD=[PASSWORD HERE] npm run build
+// env CSC_KEY_PASSWORD=[PASSWORD HERE] GH_TOKEN=[sarigama-deploy token] npm run build
 
 // const isMac = process.platform === 'darwin'
 const publish = process.argv[2] === 'deploy' ? 'always' : 'never'

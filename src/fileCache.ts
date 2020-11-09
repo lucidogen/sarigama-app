@@ -1,10 +1,10 @@
 import { existsSync, mkdirSync, readFile, rmdir, unlink, writeFile } from 'fs'
 import { join } from 'path'
-import { getCacheFolder } from 'platform-folders'
 import { sanitize } from 'sanitize-filename-ts'
 import { FileCacheAPI } from './fileCache.types'
+import { cacheFolder } from './helpers'
 
-const cacheRoot = join(getCacheFolder(), 'Sarigama')
+const cacheRoot = join(cacheFolder(), 'Sarigama')
 
 /// THIS RUNS IN THE RENDER PROCESS DURING PRELOAD, USING CONTEXT BRIDGE ////
 
