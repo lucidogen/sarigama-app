@@ -17,6 +17,8 @@ export function afterSign({ appId }: { appId: string }) {
     )
 
     if (!existsSync(appPath)) {
+      console.log(`Cannot find application at: ${appPath}`)
+      console.log(params)
       throw new Error(`Cannot find application at: ${appPath}`)
     }
 

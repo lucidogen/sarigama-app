@@ -5,20 +5,18 @@ const productName = 'Sarigama'
 const appId = 'io.sarigama.app'
 
 // to build on Windows
-// env CSC_KEY_PASSWORD=[PASSWORD HERE] GH_TOKEN=[sarigama-deploy token] npm run build
+// env CSC_KEY_PASSWORD=[PASSWORD HERE] GH_TOKEN=[sarigama-deploy token] CSC_LINK=[path/to/certificate.pfx] npm run build
 
-// const isMac = process.platform === 'darwin'
+const isMac = process.platform === 'darwin'
 const publish = process.argv[2] === 'deploy' ? 'always' : 'never'
 
 // Promise is returned
 async function buildApp() {
   await builder
     .build({
-      /*
       targets: isMac
-        ? Platform.MAC.createTarget()
-        : Platform.WINDOWS.createTarget(),
-        */
+        ? builder.Platform.MAC.createTarget()
+        : builder.Platform.WINDOWS.createTarget(),
       publish,
       config: {
         productName,
@@ -32,8 +30,6 @@ async function buildApp() {
         win: {
           target: 'nsis',
           icon: 'build/icon.ico',
-          cscLink:
-            'D:\\Dropbox\\_LUCIDOGEN\\SARIGAMA-SECURITY\\sectigo_certificate.pfx',
         },
         afterSign: afterSign({ appId }),
         forceCodeSigning: true,
