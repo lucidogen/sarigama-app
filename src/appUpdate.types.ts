@@ -12,14 +12,15 @@ export interface AppUpdateInfo {
   bytesPerSecond?: number
 }
 
+export interface AppUpdateOptions {
+  checkInterval: number
+  allowPrerelease: boolean
+  callback: (arg: AppUpdateInfo) => void
+}
+
 export interface AppUpdateAPI {
   version(): string
-  onUpdate(
-    // callback on update changes
-    callback: (arg: AppUpdateInfo) => void,
-    // check interval in seconds (0 = never)
-    checkInterval: number
-  ): void
+  onUpdate(opts: AppUpdateOptions): void
   restart(): void
 }
 

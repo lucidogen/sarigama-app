@@ -10,12 +10,12 @@ export function appUpdateAPI(): AppUpdateAPI {
     version() {
       return version
     },
-    onUpdate(callback, checkInterval) {
+    onUpdate({ callback, checkInterval, allowPrerelease }) {
       ipcRenderer.removeAllListeners('app_update')
       ipcRenderer.on('appUpdate_update', (e, update: AppUpdateInfo) => {
         callback(update)
       })
-      ipcRenderer.send('appUpdate_check', checkInterval)
+      ipcRenderer.send('appUpdate_check', checkInterval, allowPrerelease)
     },
     restart() {
       ipcRenderer.send('appUpdate_restart')
