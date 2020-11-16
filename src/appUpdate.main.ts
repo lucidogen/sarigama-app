@@ -90,7 +90,10 @@ export function appUpdateSetupMain(renderer: BrowserWindow) {
 
       checker = setInterval(() => {
         // console.log('CHECK')
-        autoUpdater.checkForUpdatesAndNotify()
+        if (!appUpdate) {
+          // Only check if we do not have an update download in progress already
+          autoUpdater.checkForUpdatesAndNotify()
+        }
       }, checkInterval * 1000) // seconds to milliseconds
     }
   )
