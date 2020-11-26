@@ -1,8 +1,8 @@
 import { existsSync, mkdirSync, readFile, rmdir, unlink, writeFile } from 'fs'
 import { join } from 'path'
 import { sanitize } from 'sanitize-filename-ts'
-import { FileCacheAPI } from './fileCache.types'
-import { cacheFolder } from './helpers'
+import { FileCacheAPI } from './types'
+import { cacheFolder } from '../../helpers'
 
 const cacheRoot = join(cacheFolder(), 'Sarigama')
 

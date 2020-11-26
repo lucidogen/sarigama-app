@@ -1,5 +1,6 @@
 import { app, BrowserWindow } from 'electron'
-import { appUpdateSetupMain } from './appUpdate.main'
+import { appUpdateSetup } from './features/appUpdate/main'
+import { targetBlankSetup } from './features/targetBlank/main'
 import { quit } from './helpers'
 import { options } from './options'
 import { settings } from './settings'
@@ -13,7 +14,8 @@ async function createWindow() {
   win.on('close', e => {
     quit(win)
   })
-  appUpdateSetupMain(win)
+  appUpdateSetup(win)
+  targetBlankSetup(win)
 }
 
 // Make sure we quit app correctly (to avoid localStorage reset due to crash)

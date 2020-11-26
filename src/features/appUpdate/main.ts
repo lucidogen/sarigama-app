@@ -1,17 +1,17 @@
 import { BrowserWindow, ipcMain } from 'electron'
 // import logger from 'electron-log'
 import { autoUpdater, UpdateInfo } from 'electron-updater'
-import { AppUpdateInfo } from './appUpdate.types'
+import { AppUpdateInfo } from './types'
 // logger.transports.file.level = 'debug'
 // autoUpdater.logger = logger
 
 /// THIS RUNS IN THE MAIN PROCESS ////
 
-export function appUpdateSetupMain(renderer: BrowserWindow) {
+export function appUpdateSetup(win: BrowserWindow) {
   // Current update state caching in case update starts before the app calls the 'onUpdate' thing
   let appUpdate: AppUpdateInfo | undefined
   let checker: NodeJS.Timeout | undefined
-  renderer.on('close', () => {
+  win.on('close', () => {
     if (checker) {
       clearInterval(checker)
     }
