@@ -1,6 +1,6 @@
 {
   "name": "sarigama-app",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "Sarigama electron app",
   "private": true,
   "main": "app/index.js",
