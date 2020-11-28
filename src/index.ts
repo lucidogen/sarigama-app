@@ -5,9 +5,6 @@ import { quit } from './helpers'
 import { options } from './options'
 import { settings } from './settings'
 
-// FIXME BEFORE RELEASE
-// Update latest links in install instructions
-
 async function createWindow() {
   const win = new BrowserWindow(options)
   await win.loadURL(settings.url)
