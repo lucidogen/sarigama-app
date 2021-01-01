@@ -8,10 +8,11 @@ const appId = 'io.sarigama.app'
 // env CSC_KEY_PASSWORD=[PASSWORD HERE] GH_TOKEN=[sarigama-deploy token] CSC_LINK=[path/to/certificate.pfx] npm run build
 
 const publish = process.argv.includes('deploy') ? 'always' : 'never'
+const isLinux = process.argv.includes('linux')
 
 function targets() {
   return process.platform === 'darwin'
-    ? process.argv.includes('linux')
+    ? isLinux
       ? builder.Platform.LINUX.createTarget()
       : builder.Platform.MAC.createTarget()
     : builder.Platform.WINDOWS.createTarget()

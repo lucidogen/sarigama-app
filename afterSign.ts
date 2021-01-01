@@ -7,7 +7,7 @@ import { join } from 'path'
 export function afterSign({ appId }: { appId: string }) {
   return async function afterSign(params: AfterPackContext) {
     // Only notarize the app on Mac OS only.
-    if (params.electronPlatformName !== 'mac') {
+    if (params.electronPlatformName !== 'darwin') {
       return
     }
 
@@ -22,7 +22,7 @@ export function afterSign({ appId }: { appId: string }) {
       throw new Error(`Cannot find application at: ${appPath}`)
     }
 
-    console.log(`Notarizing ${appId} found at ${appPath}`)
+    console.log(`  \u001b[33m•\u001b[0m notarizing      ${appId}`)
 
     try {
       await notarize({
@@ -35,6 +35,6 @@ export function afterSign({ appId }: { appId: string }) {
       console.error(error)
     }
 
-    console.log(`Done notarizing ${appId}`)
+    console.log(`  \u001b[32m•\u001b[0m notarizing      DONE`)
   }
 }
