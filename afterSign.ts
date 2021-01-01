@@ -7,7 +7,7 @@ import { join } from 'path'
 export function afterSign({ appId }: { appId: string }) {
   return async function afterSign(params: AfterPackContext) {
     // Only notarize the app on Mac OS only.
-    if (process.platform !== 'darwin') {
+    if (params.electronPlatformName !== 'mac') {
       return
     }
 

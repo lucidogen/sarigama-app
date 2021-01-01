@@ -1,7 +1,7 @@
 {
   "name": "sarigama-app",
-  "version": "2.3.3",
-  "description": "Sarigama electron app",
+  "version": "2.3.4",
+  "description": "An app for music schools",
   "private": true,
   "main": "app/index.js",
   "repository": {
@@ -15,6 +15,7 @@
     "compile": "tsc",
     "precompile": "npm run clean",
     "build": "ts-node build.ts",
+    "build:linux": "npm run build -- linux",
     "prebuild": "npm run compile",
     "deploy": "ts-node build.ts deploy",
     "predeploy": "npm run compile",
@@ -22,7 +23,7 @@
     "postmakeIcon": "png-to-ico build/icon.png > build/icon.ico",
     "assets": "cp assets/* app && cp package.json app"
   },
-  "author": "Gaspard Bucher <gaspard@lucidogen.io> (http://lucidogen.io)",
+  "author": "Lily Bucher <lily@lucidogen.io> (http://lucidogen.io)",
   "license": "MIT",
   "dependencies": {
     "electron-updater": "^4.3.5",
