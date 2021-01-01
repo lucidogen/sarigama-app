@@ -17,8 +17,8 @@
     "build": "ts-node build.ts",
     "build:linux": "npm run build -- linux",
     "prebuild": "npm run compile",
-    "deploy": "ts-node build.ts deploy",
-    "predeploy": "npm run compile",
+    "deploy": "npm run build -- deploy",
+    "deploy:linux": "npm run build -- deploy linux",
     "makeIcon": "bash makeIcon.sh",
     "postmakeIcon": "png-to-ico build/icon.png > build/icon.ico",
     "assets": "cp assets/* app && cp package.json app"
