@@ -1,6 +1,6 @@
 {
   "name": "sarigama-app",
-  "version": "2.3.4",
+  "version": "2.4.0",
   "description": "An app for music schools",
   "private": true,
   "main": "app/index.js",
