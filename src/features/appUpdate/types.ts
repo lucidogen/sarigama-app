@@ -2,6 +2,11 @@
 // UNTIL WE PUBLISH '@lucidogen/useragent' AND CAN IMPORT
 // FROM THERE.
 
+export const appUpdate = 'appUpdate'
+export const appUpdate_update = 'appUpdate_update'
+export const appUpdate_check = 'appUpdate_check'
+export const appUpdate_restart = 'appUpdate_restart'
+
 export interface AppUpdateInfo {
   status: 'available' | 'downloading' | 'ready'
   needsRestart: boolean
@@ -26,10 +31,6 @@ export interface AppUpdateAPI {
 
 declare global {
   interface Window {
-    appUpdate?: AppUpdateAPI
+    [appUpdate]?: AppUpdateAPI
   }
 }
-
-export const appVersion = window.appUpdate
-  ? () => window.appUpdate?.version()
-  : undefined

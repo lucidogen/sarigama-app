@@ -2,6 +2,8 @@
 // UNTIL WE PUBLISH '@lucidogen/data' AND CAN IMPORT
 // FROM THERE.
 
+export const fileCache = 'fileCache'
+
 export interface FileCacheResult {
   error?: string
   url?: string
@@ -17,6 +19,6 @@ export interface FileCacheAPI {
 
 declare global {
   interface Window {
-    fileCache?: FileCacheAPI
+    [fileCache]?: FileCacheAPI
   }
 }

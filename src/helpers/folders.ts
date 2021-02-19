@@ -1,7 +1,7 @@
 import { homedir } from 'os'
 import { join } from 'path'
+import { isMac } from './isMac'
 
-const isMac = process.platform === 'darwin'
 const isWin = process.platform === 'win32'
 
 export function cacheFolder() {

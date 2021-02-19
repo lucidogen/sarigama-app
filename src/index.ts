@@ -1,6 +1,8 @@
 import { app, BrowserWindow } from 'electron'
+import { appBadgeSetup } from './features/appBadge/main'
 import { appUpdateSetup } from './features/appUpdate/main'
 import { targetBlankSetup } from './features/targetBlank/main'
+import { winPositionSetup } from './features/winPosition/main'
 import { quit } from './helpers'
 import { options } from './options'
 import { settings } from './settings'
@@ -12,7 +14,9 @@ async function createWindow() {
     quit(win)
   })
   appUpdateSetup(win)
+  winPositionSetup(win)
   targetBlankSetup(win)
+  appBadgeSetup(app)
 }
 
 // Make sure we quit app correctly (to avoid localStorage reset due to crash)

@@ -1,7 +1,12 @@
 import { BrowserWindow, ipcMain } from 'electron'
 // import logger from 'electron-log'
 import { autoUpdater, UpdateInfo } from 'electron-updater'
-import { AppUpdateInfo } from './types'
+import {
+  AppUpdateInfo,
+  appUpdate_check,
+  appUpdate_restart,
+  appUpdate_update,
+} from './types'
 // logger.transports.file.level = 'debug'
 // autoUpdater.logger = logger
 
@@ -19,7 +24,7 @@ export function appUpdateSetup(win: BrowserWindow) {
   })
 
   ipcMain.on(
-    'appUpdate_check',
+    appUpdate_check,
     (e, checkInterval: number, allowPrerelease: boolean) => {
       // console.log('appUpdate_check', checkInterval)
       autoUpdater.removeAllListeners()
@@ -40,7 +45,7 @@ export function appUpdateSetup(win: BrowserWindow) {
             version,
             releaseDate,
           }
-          e.sender.send('appUpdate_update', appUpdate)
+          e.sender.send(appUpdate_update, appUpdate)
         }
       )
 
@@ -98,7 +103,7 @@ export function appUpdateSetup(win: BrowserWindow) {
     }
   )
 
-  ipcMain.on('appUpdate_restart', () => {
+  ipcMain.on(appUpdate_restart, () => {
     // console.log('appUpdate_restart')
     if (appUpdate?.status === 'ready') {
       // Just make sure this is not called if we do not have an update ready.
