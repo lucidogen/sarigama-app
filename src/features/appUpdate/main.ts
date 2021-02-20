@@ -1,5 +1,4 @@
 import { BrowserWindow, ipcMain } from 'electron'
-// import logger from 'electron-log'
 import { autoUpdater, UpdateInfo } from 'electron-updater'
 import {
   AppUpdateInfo,
