@@ -14,6 +14,8 @@ Note: `GH_TOKEN` and `CSC_KEY_PASSWORD` are stored in [Lucidogen vault](https://
 
 **Windows**
 
+Replace `[ ... PATH ...] below with the path to the servers settings folder.`
+
 ```
 env CSC_LINK=[ ... PATH ... ]\\SARIGAMA-SECURITY\\certificate_win.pfx CSC_KEY_PASSWORD=[ CSC_KEY_PASSWORD ] GH_TOKEN=[ GH_TOKEN ] npm run deploy
 ```
