@@ -23,7 +23,7 @@
     "postmakeIcon": "png-to-ico build/icon.png > build/icon.ico",
     "assets": "cp assets/* app && cp package.json app"
   },
-  "author": "Lily Bucher <lily@lucidogen.io> (http://lucidogen.io)",
+  "author": "Anna Bucher <anna@lucidogen.com> (http://lucidogen.com)",
   "license": "MIT",
   "dependencies": {
     "electron-updater": "^4.3.5",
